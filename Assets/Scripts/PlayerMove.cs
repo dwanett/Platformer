@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : CharacterMove
 {
     private const string Horizontal = "Horizontal";
     private const string Jump = "Jump";
@@ -12,15 +11,13 @@ public class PlayerMove : MonoBehaviour
     
     [SerializeField] private float _speed;
     [SerializeField] private float _forceJump;
-    [SerializeField] Rigidbody2D _rigidbody;
-    [SerializeField] SpriteRenderer _spriteRenderer;
-    [SerializeField] Camera _camera;
+    [SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private Camera _camera;
     [SerializeField] private float _speedCamera;
     
     private bool _isJumped;
     private int _numberMaskFloor;
-
-    public event Action<bool> Moved;
     
     private void Start()
     {
@@ -62,7 +59,7 @@ public class PlayerMove : MonoBehaviour
             if (_isJumped == false)
             {
                 _isJumped = true;
-                Moved?.Invoke(false);
+                InvokeActionMoved(false);
                 _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _forceJump);
             }
         }
@@ -74,12 +71,12 @@ public class PlayerMove : MonoBehaviour
 
         if (horizontalAxis != 0f)
         {
-            Moved?.Invoke(_isJumped == false);
+            InvokeActionMoved(_isJumped == false);
             Flip(horizontalAxis);
         }
         else
         {
-            Moved?.Invoke(false);
+            InvokeActionMoved(false);
         }
 
         _rigidbody.velocity = new Vector2(horizontalAxis * _speed, _rigidbody.velocity.y);

@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 1689611707187291133}
   - component: {fileID: 7695251038296440793}
   - component: {fileID: 5857561075541381020}
+  - component: {fileID: 1894758041955767720}
   - component: {fileID: 8066038366880677042}
   - component: {fileID: 5015145752498752108}
-  - component: {fileID: 1894758041955767720}
-  - component: {fileID: 1225124175584253127}
+  - component: {fileID: 4273605368987294888}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -152,6 +152,27 @@ CapsuleCollider2D:
   m_Offset: {x: -0.007546246, y: -0.028889358}
   m_Size: {x: 0.8047215, y: 0.9422213}
   m_Direction: 0
+--- !u!95 &1894758041955767720
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6078871351324992052}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 51852cd251f22584ebaacf9fe27d5a15, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &8066038366880677042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,28 +200,7 @@ MonoBehaviour:
   _enemy: {fileID: 8066038366880677042}
   _rigidbody2D: {fileID: 7695251038296440793}
   _speed: 3
---- !u!95 &1894758041955767720
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6078871351324992052}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 51852cd251f22584ebaacf9fe27d5a15, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1225124175584253127
+--- !u!114 &4273605368987294888
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -209,8 +209,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6078871351324992052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67778487f469c684b8dc69be622c8e65, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a23ef632b656fb4b9a483f5889e5f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 1894758041955767720}
-  _enemyMove: {fileID: 5015145752498752108}
+  _characterMove: {fileID: 5015145752498752108}

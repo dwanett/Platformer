@@ -3,6 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private const string Coin = "Coin";
+    
     private int _countCoin;
     
     private void Start()

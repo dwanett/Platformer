@@ -1,30 +1,27 @@
-using System;
 using UnityEngine;
 
 
 [RequireComponent(typeof(Enemy))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class EnemyMove : MonoBehaviour
+public class EnemyMove : CharacterMove
 {
     [SerializeField] private Enemy _enemy;
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private float _speed;
 
-    private bool checkPoint;
-    private Transform targetTransform;
-    
-    public event Action<bool> Moved;
+    private bool _checkPoint;
+    private Transform _targetTransform;
     
     private void Start()
     {
-        checkPoint = false;
-        targetTransform = _enemy.GetNextPointTarget();
+        _checkPoint = false;
+        _targetTransform = _enemy.GetNextPointTarget();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.transform == targetTransform)
-            targetTransform = _enemy.GetNextPointTarget();
+        if (other.transform == _targetTransform)
+            _targetTransform = _enemy.GetNextPointTarget();
     }
 
     private void FixedUpdate()
@@ -34,17 +31,17 @@ public class EnemyMove : MonoBehaviour
 
     private void MoveToTarget()
     {
-        Vector3 direction = targetTransform.position - transform.position;
+        Vector3 direction = _targetTransform.position - transform.position;
         direction.z = 0;
 
         if (direction.normalized.x != 0)
         {
-            Moved?.Invoke(true);
+            InvokeActionMoved(true);
             Flip(direction.normalized.x);
         }
         else
         {
-            Moved?.Invoke(false);
+            InvokeActionMoved(false);
         }
         
         _rigidbody2D.velocity = direction.normalized * _speed;

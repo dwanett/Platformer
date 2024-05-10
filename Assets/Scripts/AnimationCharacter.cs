@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class AnimationEnemy : MonoBehaviour
+public class AnimationCharacter : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
-    [SerializeField] private EnemyMove _enemyMove;
+    [SerializeField] private CharacterMove _characterMove;
     
     private void OnEnable()
     {
-        _enemyMove.Moved += AnimationRun;
+        _characterMove.Moved += AnimationRun;
     }
 
     private void OnDisable()
     {
-        _enemyMove.Moved -= AnimationRun;
+        _characterMove.Moved -= AnimationRun;
     }
     
     private void AnimationRun(bool isMoved)

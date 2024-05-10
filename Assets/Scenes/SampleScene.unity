@@ -524,7 +524,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5872134037609445347, guid: f4238c7b99016f2448bb7d8328fb4ebb, type: 3}
   m_PrefabInstance: {fileID: 344880558182306944}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &366035760
+--- !u!114 &366035766
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 366035759}
-  _playerMove: {fileID: 366035754}
+  _characterMove: {fileID: 366035754}
 --- !u!1 &401352510
 GameObject:
   m_ObjectHideFlags: 0
@@ -6399,13 +6399,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2993474453874851393, guid: f4238c7b99016f2448bb7d8328fb4ebb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5709222168697740461, guid: f4238c7b99016f2448bb7d8328fb4ebb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 366035760}
+      insertIndex: 6
+      addedObject: {fileID: 366035766}
   m_SourcePrefab: {fileID: 100100000, guid: f4238c7b99016f2448bb7d8328fb4ebb, type: 3}
 --- !u!1001 &5329062210652478603
 PrefabInstance:

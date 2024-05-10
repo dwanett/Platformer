@@ -6,8 +6,10 @@ public class Paralax : MonoBehaviour
     [SerializeField] private Camera _camera;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private float _paralaxEffect;
+    
     private float _lenght;
     private float _startpos;
+    
     private void Start()
     {
         _startpos = transform.position.x;
