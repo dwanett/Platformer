@@ -4,9 +4,14 @@ using UnityEngine;
 public class SpawnerCoin : MonoBehaviour
 {
     [SerializeField] private Coin _coin;
+
+    private Coroutine _coroutine;
     
     private void OnDisable()
     {
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+        
         _coin.TakedCoin -= SpawnCoin;
     }
     
@@ -17,7 +22,7 @@ public class SpawnerCoin : MonoBehaviour
 
     private void SpawnCoin()
     {
-        StartCoroutine(Spawn());
+        _coroutine = StartCoroutine(Spawn());
     }
     
     private IEnumerator Spawn()

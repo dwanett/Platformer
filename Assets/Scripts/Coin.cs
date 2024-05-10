@@ -4,8 +4,10 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     public event Action TakedCoin;
-    private void OnDisable()
+    
+    public void TackedCoin()
     {
         TakedCoin?.Invoke();
+        gameObject.SetActive(false);
     }
 }

@@ -14,8 +14,11 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer(Coin))
         {
-            _countCoin++;
-            other.gameObject.SetActive(false);
+            if (other.gameObject.TryGetComponent(out Coin coin))
+            {
+                _countCoin++;
+                coin.TackedCoin();
+            }
         }
     }
 }
