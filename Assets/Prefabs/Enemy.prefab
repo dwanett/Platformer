@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8066038366880677042}
   - component: {fileID: 5015145752498752108}
   - component: {fileID: 4273605368987294888}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,6 +185,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2c0321e53d3144f9d37eb074571f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 100
+  _health: 100
+  _damage: 20
+  _timeDelayAttack: 2
+  <DistanceAttack>k__BackingField: 1
 --- !u!114 &5015145752498752108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,8 +202,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b09cdc5ccc35c4e947b5d6b1ace7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _layerMaskPlayer:
+    serializedVersion: 2
+    m_Bits: 128
   _enemy: {fileID: 8066038366880677042}
   _rigidbody2D: {fileID: 7695251038296440793}
+  _distanceVision: 5
   _speed: 3
 --- !u!114 &4273605368987294888
 MonoBehaviour:
@@ -214,3 +223,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 1894758041955767720}
   _characterMove: {fileID: 5015145752498752108}
+  _character: {fileID: 8066038366880677042}

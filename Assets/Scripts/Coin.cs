@@ -1,13 +1,3 @@
-using System;
-using UnityEngine;
-
-public class Coin : MonoBehaviour
+public class Coin : Loot
 {
-    public event Action TakedCoin;
-    
-    public void TackedCoin()
-    {
-        TakedCoin?.Invoke();
-        gameObject.SetActive(false);
-    }
 }

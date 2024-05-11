@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
-    private const string Coin = "Coin";
+    [SerializeField] private Collider2D _collider2D;
+
+    public float DeltaTransformCollider => _collider2D.bounds.size.x;
     
     private int _countCoin;
     
@@ -11,15 +14,21 @@ public class Player : MonoBehaviour
         _countCoin = 0;
     }
 
+    private void OnDisable()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer(Coin))
+        if (other.gameObject.TryGetComponent(out Loot loot))
         {
-            if (other.gameObject.TryGetComponent(out Coin coin))
-            {
+            if (loot is Coin)
                 _countCoin++;
-                coin.TackedCoin();
-            }
+            else if (loot is KitHealth kitHealth)
+                AddHealth(kitHealth.CountAddHealth);
+
+            loot.TackedLoot();
         }
     }
 }
