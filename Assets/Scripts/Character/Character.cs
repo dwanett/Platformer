@@ -4,10 +4,10 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField, Range(0, 300f)] protected float _maxHealth;
-    [SerializeField, Range(0, 300f)] protected float _health;
-    [SerializeField, Range(0, 300f)] protected float _damage;
-    [SerializeField] protected float _timeDelayAttack;
+    [SerializeField, Range(0, 300f)] private float _maxHealth;
+    [SerializeField, Range(0, 300f)] private float _health;
+    [SerializeField, Range(0, 300f)] private float _damage;
+    [SerializeField] private float _timeDelayAttack;
     
     public event Action AttackEvent;
     public event Action TakeDamageEvent;
@@ -56,13 +56,10 @@ public abstract class Character : MonoBehaviour
             _health = _maxHealth;
         else
             _health += health;
-        
-        Debug.Log($"СЮДА АПТЕЧКУ!!!! ТЕПРЬ У МЕНЯ ДОХУЯ ЖИЗНЕЙ {_health}");
     }
 
     private void TakeDamage(float damage)
     {
-        Debug.Log($"{this} БЫЛО: {_health} ОСТАЛОСЬ: {_health - damage}");
         _health -= damage;
         
         TakeDamageEvent?.Invoke();

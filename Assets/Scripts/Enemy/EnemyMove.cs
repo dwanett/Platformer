@@ -50,7 +50,6 @@ public class EnemyMove : CharacterMove
         }
         else
         {
-            Debug.Log("Потерял кожаного");
             _targetPlayer = null;
             _targetTransform = _enemy.GetNextPointTarget();
         }
@@ -59,11 +58,9 @@ public class EnemyMove : CharacterMove
     private void Vision()
     {
         RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, DirectionView(), _distanceVision, _layerMaskPlayer.value);
-        Debug.DrawRay(transform.position, DirectionView() * _distanceVision, Color.green);
         
         if (raycastHit2D && raycastHit2D.collider.TryGetComponent(out Player targetPlayer))
         {
-            Debug.DrawRay(transform.position, DirectionView() * _distanceVision, Color.red);
             _targetPlayer = targetPlayer;
             _targetTransform = _targetPlayer.transform;
         }
