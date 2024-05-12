@@ -17,9 +17,11 @@ public abstract class Loot : MonoBehaviour
 
     public IEnumerator Spawn()
     {
+        WaitForSeconds waitForSeconds = new WaitForSeconds(_timeRespawnDelay);
+        
         if (_canRespawn)
         {
-            yield return new WaitForSeconds(_timeRespawnDelay);
+            yield return waitForSeconds;
             gameObject.SetActive(true);
         }
     }

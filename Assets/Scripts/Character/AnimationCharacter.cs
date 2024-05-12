@@ -11,15 +11,23 @@ public class AnimationCharacter : MonoBehaviour
     
     private void OnEnable()
     {
-        _character.AttackEvent += AnimationAttack;
-        _character.TakeDamageEvent += AnimationTakeDamage;
+        if (_character != null)
+        {
+            _character.AttackEvent += AnimationAttack;
+            _character.TakeDamageEvent += AnimationTakeDamage;
+        }
+        
         _characterMove.Moved += AnimationRun;
     }
 
     private void OnDisable()
     {
-        _character.AttackEvent += AnimationAttack;
-        _character.TakeDamageEvent += AnimationTakeDamage;
+        if (_character != null)
+        {
+            _character.AttackEvent -= AnimationAttack;
+            _character.TakeDamageEvent -= AnimationTakeDamage;
+        }
+        
         _characterMove.Moved -= AnimationRun;
     }
     
