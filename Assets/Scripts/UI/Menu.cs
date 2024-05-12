@@ -30,4 +30,9 @@ public class Menu : MonoBehaviour
         _mainMenu.SetActive(true);
         _settingsMenu.SetActive(false);
     }
+    
+    public void Exit()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
+    }
 }
