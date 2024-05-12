@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class Loot : MonoBehaviour
 {
-    [SerializeField] protected bool _canRespawn;
-    [SerializeField] protected float _timeRespawnDelay;
+    [SerializeField] private bool _canRespawn;
+    [SerializeField] private float _timeRespawnDelay;
     
     public event Action TakedLoot;
     
