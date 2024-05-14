@@ -5,39 +5,50 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class PlayerMove : CharacterMove
 {
-    private const string Horizontal = "Horizontal";
-    private const string Jump = "Jump";
-    private const string NameMaskFloor = "Floor";
-    
+    [Header("Move"), Space]
     [SerializeField] private float _speed;
     [SerializeField] private float _forceJump;
     [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private PlayerInput _playerInput;
+    [SerializeField] private LayerMask _floorMask;
+    
+    [Header("Camera"), Space]
     [SerializeField] private Camera _camera;
     [SerializeField] private float _speedCamera;
     
-    private bool _isJumped;
-    private int _numberMaskFloor;
+    private bool _onGround;
+    private bool _isMoved;
+    private Coroutine _moving;
+    private float _horizontalAxis;
     
+    private void OnEnable()
+    {
+        _playerInput.MoveEvent += Move;
+        _playerInput.JumpEvent += Jump;
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.MoveEvent -= Move;
+        _playerInput.JumpEvent -= Jump;
+    }
+
     private void Start()
     {
         StartCoroutine(MoveCamera());
-        _numberMaskFloor = LayerMask.NameToLayer(NameMaskFloor);
+        _horizontalAxis = 0;
+        _isMoved = false;
+        _onGround = true;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == _numberMaskFloor && Physics2D.Raycast(transform.position, Vector2.down,
-                _spriteRenderer.bounds.extents.y + 0.1f, LayerMask.GetMask(NameMaskFloor)))
-        {
-            _isJumped = false;
-        }
-    }
-    
-    private void FixedUpdate()
-    {
-        Move();
-        Jumped();
+        if (Physics2D.Raycast(transform.position, Vector2.down,
+                _spriteRenderer.bounds.extents.y + 0.1f, _floorMask.value))
+            _onGround = true;
+        else
+            _onGround = false;
     }
 
     private IEnumerator MoveCamera()
@@ -49,46 +60,42 @@ public class PlayerMove : CharacterMove
             yield return null;
         }
     }
-    
-    private void Jumped()
+
+    private void Jump(bool isJumped)
     {
-        float jumpAxis = Input.GetAxis(Jump);
-        
-        if (jumpAxis != 0f)
+        if (_onGround && isJumped)
         {
-            if (_isJumped == false)
-            {
-                _isJumped = true;
-                InvokeActionMoved(false);
-                _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _forceJump);
-            }
+            _onGround = false;
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _forceJump);
         }
     }
     
-    private void Move()
+    private void Move(float horizontalAxis)
     {
-        float horizontalAxis = Input.GetAxis(Horizontal);
-
-        if (horizontalAxis != 0f)
+        _horizontalAxis = horizontalAxis;
+        
+        if (_isMoved == false && _horizontalAxis != 0f)
         {
-            InvokeActionMoved(_isJumped == false);
-            Flip(horizontalAxis);
-        }
-        else
-        {
-            InvokeActionMoved(false);
-        }
+            if (_moving != null)
+                StopCoroutine(_moving);
 
-        _rigidbody.velocity = new Vector2(horizontalAxis * _speed, _rigidbody.velocity.y);
+            _isMoved = true;
+            Flip(_horizontalAxis);
+            _moving = StartCoroutine(Moving());
+        }
+        else if (_horizontalAxis == 0f)
+        {
+            _isMoved = false;
+        }
     }
     
-    private void Flip(float horizontalAxis)
+    private IEnumerator Moving()
     {
-        Vector3 localScale = transform.localScale;
-        
-        if (Mathf.Clamp(horizontalAxis / Mathf.Abs(horizontalAxis), -1, 1) != Mathf.Clamp(localScale.x, -1, 1))
-            localScale.x *= -1;
-        
-        transform.localScale = localScale;
+        while (enabled)
+        {
+            InvokeActionMoved(_isMoved && _onGround);
+            _rigidbody.velocity = new Vector2(_horizontalAxis * _speed, _rigidbody.velocity.y);
+            yield return new WaitForFixedUpdate();
+        }
     }
 }

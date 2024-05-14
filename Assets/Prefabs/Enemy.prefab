@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 7695251038296440793}
   - component: {fileID: 5857561075541381020}
   - component: {fileID: 1894758041955767720}
+  - component: {fileID: 5213940507639047069}
+  - component: {fileID: 3934000022258688972}
+  - component: {fileID: 7697642678109015388}
   - component: {fileID: 8066038366880677042}
   - component: {fileID: 5015145752498752108}
   - component: {fileID: 4273605368987294888}
@@ -173,6 +176,47 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5213940507639047069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6078871351324992052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad814410c7374d49b823908a3c774ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxValue: 100
+  <Value>k__BackingField: 100
+--- !u!114 &3934000022258688972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6078871351324992052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e3dd7f3c83469190b867b2c2ce3ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Value>k__BackingField: 25
+--- !u!114 &7697642678109015388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6078871351324992052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d3640ad8d974632a53f3c9d2abb8435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeDelayAttack: 2.5
+  <DistanceAttack>k__BackingField: 1
 --- !u!114 &8066038366880677042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,11 +229,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2c0321e53d3144f9d37eb074571f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _health: 100
-  _damage: 20
-  _timeDelayAttack: 2
-  <DistanceAttack>k__BackingField: 1
+  <Attack>k__BackingField: {fileID: 7697642678109015388}
+  <Health>k__BackingField: {fileID: 5213940507639047069}
+  <Damage>k__BackingField: {fileID: 3934000022258688972}
 --- !u!114 &5015145752498752108
 MonoBehaviour:
   m_ObjectHideFlags: 0

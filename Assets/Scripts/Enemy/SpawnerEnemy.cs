@@ -1,8 +1,7 @@
-
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class SpawnerEnemy : MonoBehaviour
+public class SpawnerEnemy : Spawner
 {
     [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private PatrollingWay _patrollingWay;

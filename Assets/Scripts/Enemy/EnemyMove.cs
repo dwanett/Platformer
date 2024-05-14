@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 [RequireComponent(typeof(Enemy))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMove : CharacterMove
@@ -43,9 +42,9 @@ public class EnemyMove : CharacterMove
         
         if (distanceToPlayer < _distanceVision + _targetPlayer.DeltaTransformCollider)
         {
-            if (distanceToPlayer - _enemy.DistanceAttack < 0.0f)
+            if (distanceToPlayer - _enemy.Attack.DistanceAttack < 0.0f)
             {
-                _enemy.Attack(_targetPlayer);
+                _enemy.AttackFor(_targetPlayer);
             }
         }
         else
@@ -57,7 +56,7 @@ public class EnemyMove : CharacterMove
     
     private void Vision()
     {
-        RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, DirectionView(), _distanceVision, _layerMaskPlayer.value);
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, GetDirectionView(), _distanceVision, _layerMaskPlayer.value);
         
         if (raycastHit2D && raycastHit2D.collider.TryGetComponent(out Player targetPlayer))
         {
@@ -82,15 +81,5 @@ public class EnemyMove : CharacterMove
         }
 
         _rigidbody2D.velocity = direction.normalized * _speed;
-    }
-    
-    private void Flip(float horizontalAxis)
-    {
-        Vector3 localScale = transform.localScale;
-        
-        if (Mathf.Clamp(horizontalAxis / Mathf.Abs(horizontalAxis), -1, 1) != Mathf.Clamp(localScale.x, -1, 1))
-            localScale.x *= -1;
-        
-        transform.localScale = localScale;
     }
 }

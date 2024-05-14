@@ -1,24 +1,49 @@
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerMove))]
 public class Player : Character
 {
     [SerializeField] private Collider2D _collider2D;
-
+    [SerializeField] private PlayerInput _playerInput;
+    [SerializeField] private PlayerMove _playerMove;
+    [SerializeField] private LayerMask _layerMaskAttacked;
     public float DeltaTransformCollider => _collider2D.bounds.size.x;
     
     private int _countCoin;
+
+    public event Action Die;
     
     private void Start()
     {
         _countCoin = 0;
     }
 
-    private void OnDisable()
+    private void OnEnable()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        _playerInput.AssailEvent += Assail;
     }
 
+    private void OnDisable()
+    {
+        _playerInput.AssailEvent -= Assail;
+        Die?.Invoke();
+    }
+
+    private void Assail(bool isAttack)
+    {
+        if (isAttack && Attack.CanAttack)
+        {
+            RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, _playerMove.GetDirectionView(),
+                Attack.DistanceAttack, _layerMaskAttacked.value);
+
+            if (raycastHit2D && raycastHit2D.collider.TryGetComponent(out Enemy targetEnemy))
+                AttackFor(targetEnemy);
+        }
+    }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.TryGetComponent(out Loot loot))
@@ -26,7 +51,7 @@ public class Player : Character
             if (loot is Coin)
                 _countCoin++;
             else if (loot is KitHealth kitHealth)
-                AddHealth(kitHealth.CountAddHealth);
+                Health.AddHealth(kitHealth.CountAddHealth);
 
             loot.TackedLoot();
         }

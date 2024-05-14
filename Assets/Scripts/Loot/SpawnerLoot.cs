@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEngine;
 
-public class SpawnerLoot : MonoBehaviour
+public class SpawnerLoot : Spawner
 {
     [SerializeField] private Loot _loot;
-
+    [SerializeField] private float _timeRespawnDelay;
+    [SerializeField] public bool _canRespawn;
+    
     private Coroutine _coroutine;
     
     private void OnDisable()
@@ -21,6 +24,15 @@ public class SpawnerLoot : MonoBehaviour
 
     private void SpawnCoin()
     {
-        _coroutine = StartCoroutine(_loot.Spawn());
+        _coroutine = StartCoroutine(Spawn());
+    }
+    
+    private IEnumerator Spawn()
+    {
+        if (_canRespawn)
+        {
+            yield return new WaitForSeconds(_timeRespawnDelay);
+            _loot.SetActive(true);
+        }
     }
 }

@@ -173,8 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a5f79014a584e45bc280bf3dd2d649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canRespawn: 1
-  _timeRespawnDelay: 10
 --- !u!95 &6620195226802639628
 Animator:
   serializedVersion: 5
@@ -242,3 +240,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loot: {fileID: 5304005074746339473}
+  _timeRespawnDelay: 10
+  _canRespawn: 1
