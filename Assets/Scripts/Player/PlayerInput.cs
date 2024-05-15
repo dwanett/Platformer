@@ -14,7 +14,7 @@ public class PlayerInput : MonoBehaviour
     private void Update()
     {
         MoveEvent?.Invoke(Input.GetAxis(Horizontal));
-        JumpEvent?.Invoke(Input.GetButtonDown(Jump));
-        AssailEvent?.Invoke(Input.GetButtonDown(FireOne));
+        JumpEvent?.Invoke(Input.GetButton(Jump));
+        AssailEvent?.Invoke(Input.GetButton(FireOne));
     }
 }

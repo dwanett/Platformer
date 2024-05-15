@@ -244,6 +244,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b09cdc5ccc35c4e947b5d6b1ace7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FloorMask:
+    serializedVersion: 2
+    m_Bits: 8
+  SpriteRenderer: {fileID: 1689611707187291133}
   _layerMaskPlayer:
     serializedVersion: 2
     m_Bits: 128

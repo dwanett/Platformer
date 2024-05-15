@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3640ad8d974632a53f3c9d2abb8435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeDelayAttack: 2
+  _timeDelayAttack: 1.5
   <DistanceAttack>k__BackingField: 1
 --- !u!114 &5903855861426714744
 MonoBehaviour:
@@ -251,14 +251,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b007d0ad8f2feca479d6599391795fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FloorMask:
+    serializedVersion: 2
+    m_Bits: 8
+  SpriteRenderer: {fileID: 7303385581129422991}
   _speed: 4
   _forceJump: 7
   _rigidbody: {fileID: 6136187414459004861}
-  _spriteRenderer: {fileID: 7303385581129422991}
   _playerInput: {fileID: 2461984216095376547}
-  _floorMask:
-    serializedVersion: 2
-    m_Bits: 8
   _camera: {fileID: 0}
   _speedCamera: 2
 --- !u!114 &2461984216095376547

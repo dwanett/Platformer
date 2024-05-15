@@ -1,7 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Enemy))]
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Enemy), typeof(Rigidbody2D))]
 public class EnemyMove : CharacterMove
 {
     [SerializeField] private LayerMask _layerMaskPlayer;
@@ -30,6 +29,12 @@ public class EnemyMove : CharacterMove
     {
         MoveToTarget();
 
+        if (Physics2D.Raycast(transform.position, Vector2.down,
+                SpriteRenderer.bounds.extents.y + 0.1f, FloorMask.value))
+            OnGround = true;
+        else
+            OnGround = false;
+        
         if (_targetPlayer is not null)
             ChasePlayer();
         else
@@ -73,7 +78,7 @@ public class EnemyMove : CharacterMove
         if (direction.normalized.x != 0f)
         {
             Flip(direction.normalized.x);
-            InvokeActionMoved(true);
+            InvokeActionMoved(OnGround);
         }
         else
         {  

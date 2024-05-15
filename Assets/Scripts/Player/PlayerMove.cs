@@ -2,22 +2,18 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerMove : CharacterMove
 {
     [Header("Move"), Space]
     [SerializeField] private float _speed;
     [SerializeField] private float _forceJump;
     [SerializeField] private Rigidbody2D _rigidbody;
-    [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private PlayerInput _playerInput;
-    [SerializeField] private LayerMask _floorMask;
     
     [Header("Camera"), Space]
     [SerializeField] private Camera _camera;
     [SerializeField] private float _speedCamera;
     
-    private bool _onGround;
     private bool _isMoved;
     private Coroutine _moving;
     private float _horizontalAxis;
@@ -39,16 +35,16 @@ public class PlayerMove : CharacterMove
         StartCoroutine(MoveCamera());
         _horizontalAxis = 0;
         _isMoved = false;
-        _onGround = true;
+        OnGround = true;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (Physics2D.Raycast(transform.position, Vector2.down,
-                _spriteRenderer.bounds.extents.y + 0.1f, _floorMask.value))
-            _onGround = true;
+                SpriteRenderer.bounds.extents.y + 0.1f, FloorMask.value))
+            OnGround = true;
         else
-            _onGround = false;
+            OnGround = false;
     }
 
     private IEnumerator MoveCamera()
@@ -63,9 +59,9 @@ public class PlayerMove : CharacterMove
 
     private void Jump(bool isJumped)
     {
-        if (_onGround && isJumped)
+        if (OnGround && isJumped)
         {
-            _onGround = false;
+            OnGround = false;
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _forceJump);
         }
     }
@@ -93,7 +89,7 @@ public class PlayerMove : CharacterMove
     {
         while (enabled)
         {
-            InvokeActionMoved(_isMoved && _onGround);
+            InvokeActionMoved(_isMoved && OnGround);
             _rigidbody.velocity = new Vector2(_horizontalAxis * _speed, _rigidbody.velocity.y);
             yield return new WaitForFixedUpdate();
         }
