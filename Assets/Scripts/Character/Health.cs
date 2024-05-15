@@ -21,6 +21,9 @@ public class Health : MonoBehaviour
     
     public void TakeHealth(float health)
     {
+        if (health <= 0f) 
+            return;
+        
         Value = Mathf.Clamp(Value - health, 0, Value);
     }
 }
