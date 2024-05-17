@@ -19,8 +19,7 @@ public class SettingsSound : MonoBehaviour
     
     public event Action<bool> DisabledOrEnabledSound;
     
-    private float _saveVolume
-        ;
+    private float _saveVolume;
     public bool IsEnableSound { get; private set; }
     
     private void Awake()
