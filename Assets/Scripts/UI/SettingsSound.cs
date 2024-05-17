@@ -19,8 +19,9 @@ public class SettingsSound : MonoBehaviour
     
     public event Action<bool> DisabledOrEnabledSound;
     
-    private bool _isEnableSound;
-    private float _saveVolume;
+    private float _saveVolume
+        ;
+    public bool IsEnableSound { get; private set; }
     
     private void Awake()
     {
@@ -31,8 +32,8 @@ public class SettingsSound : MonoBehaviour
         }
         
         _audioMixer.GetFloat(_nameValueVolumeMaster, out _saveVolume);
-        _isEnableSound = _saveVolume > _valueVolumeOffSound;
-        DisabledOrEnabledSound?.Invoke(_isEnableSound);
+        IsEnableSound = _saveVolume > _valueVolumeOffSound;
+        DisabledOrEnabledSound?.Invoke(IsEnableSound);
     }
 
     private IEnumerator TimePlaySound(AudioSource audioSource)
@@ -52,8 +53,8 @@ public class SettingsSound : MonoBehaviour
     {
         _audioMixer.SetFloat(_nameValueVolumeMaster, volume);
         _saveVolume = volume;
-        _isEnableSound = _saveVolume > _valueVolumeOffSound;
-        DisabledOrEnabledSound?.Invoke(_isEnableSound);
+        IsEnableSound = _saveVolume > _valueVolumeOffSound;
+        DisabledOrEnabledSound?.Invoke(IsEnableSound);
     }
     
     public void VolumeBackground(float volume)
@@ -68,18 +69,18 @@ public class SettingsSound : MonoBehaviour
     
     public void EnableAndDisableSound()
     {
-        if (_isEnableSound)
+        if (IsEnableSound)
         {
-            _isEnableSound = false;
+            IsEnableSound = false;
             _audioMixer.GetFloat(_nameValueVolumeMaster, out _saveVolume);
             _audioMixer.SetFloat(_nameValueVolumeMaster, _valueVolumeOffSound);
         }
         else
         {
-            _isEnableSound = true;
+            IsEnableSound = true;
             _audioMixer.SetFloat(_nameValueVolumeMaster, _saveVolume);
         }
         
-        DisabledOrEnabledSound?.Invoke(_isEnableSound);
+        DisabledOrEnabledSound?.Invoke(IsEnableSound);
     }
 }

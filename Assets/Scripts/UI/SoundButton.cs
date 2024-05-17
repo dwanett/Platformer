@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,12 @@ public class SoundButton : MonoBehaviour
     [SerializeField] private Sprite _spriteEnabledSound;
     [SerializeField] private Sprite _spriteDisabledSound;
     [SerializeField] private Image _image;
-    
+
+    private void Start()
+    {
+        ChangeImageSound(_settingsSound.IsEnableSound);
+    }
+
     private void OnEnable()
     {
         _settingsSound.DisabledOrEnabledSound += ChangeImageSound;
