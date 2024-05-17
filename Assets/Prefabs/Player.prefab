@@ -13,8 +13,11 @@ GameObject:
   - component: {fileID: 6136187414459004861}
   - component: {fileID: 8779743007867170730}
   - component: {fileID: 5872134037609445347}
-  - component: {fileID: 3960398734946553878}
+  - component: {fileID: 2232554882874013226}
+  - component: {fileID: 8211562763489705640}
+  - component: {fileID: 5903855861426714744}
   - component: {fileID: -1403307251692910894}
+  - component: {fileID: 3960398734946553878}
   - component: {fileID: 2461984216095376547}
   - component: {fileID: 5672834063730114833}
   m_Layer: 7
@@ -174,7 +177,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3960398734946553878
+--- !u!114 &2232554882874013226
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,15 +186,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 5709222168697740461}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b007d0ad8f2feca479d6599391795fd7, type: 3}
+  m_Script: {fileID: 11500000, guid: ad814410c7374d49b823908a3c774ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 4
-  _forceJump: 7
-  _rigidbody: {fileID: 6136187414459004861}
-  _spriteRenderer: {fileID: 7303385581129422991}
-  _camera: {fileID: 0}
-  _speedCamera: 2
+  _maxValue: 100
+  <Value>k__BackingField: 100
+--- !u!114 &8211562763489705640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5709222168697740461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d3640ad8d974632a53f3c9d2abb8435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeDelayAttack: 1.5
+  <DistanceAttack>k__BackingField: 1
+--- !u!114 &5903855861426714744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5709222168697740461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e3dd7f3c83469190b867b2c2ce3ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Value>k__BackingField: 25
 --- !u!114 &-1403307251692910894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,12 +230,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c752df1940530b34d866419eba6886d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _health: 100
-  _damage: 25
-  _timeDelayAttack: 2
-  <DistanceAttack>k__BackingField: 1
-  _collider2D: {fileID: 8779743007867170730}
+  <Attacker>k__BackingField: {fileID: 8211562763489705640}
+  <Health>k__BackingField: {fileID: 2232554882874013226}
+  <Damage>k__BackingField: {fileID: 5903855861426714744}
+  _playerInput: {fileID: 2461984216095376547}
+  _playerMove: {fileID: 3960398734946553878}
+  _layerMaskAttacked:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &3960398734946553878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5709222168697740461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b007d0ad8f2feca479d6599391795fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FloorMask:
+    serializedVersion: 2
+    m_Bits: 8
+  SpriteRenderer: {fileID: 7303385581129422991}
+  _speed: 4
+  _forceJump: 7
+  _rigidbody: {fileID: 6136187414459004861}
+  _playerInput: {fileID: 2461984216095376547}
+  _camera: {fileID: 0}
+  _speedCamera: 2
 --- !u!114 &2461984216095376547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,11 +272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb083bc94174bca93d6e211672e78b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: -1403307251692910894}
-  _playerMove: {fileID: 3960398734946553878}
-  _layerMaskAttacked:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &5672834063730114833
 MonoBehaviour:
   m_ObjectHideFlags: 0

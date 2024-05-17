@@ -173,8 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a348d5e59d46118c5b888249ee4a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canRespawn: 1
-  _timeRespawnDelay: 25
   <CountAddHealth>k__BackingField: 25
 --- !u!95 &7691414654753143090
 Animator:
@@ -243,3 +241,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loot: {fileID: 2151800362099410435}
+  _timeRespawnDelay: 25
+  _canRespawn: 1
