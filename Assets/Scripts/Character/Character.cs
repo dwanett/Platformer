@@ -3,25 +3,20 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    [field: SerializeField] public Attack Attack {get; private set;}
+    [field: SerializeField] public Attack Attacker {get; private set;}
     [field: SerializeField] public Health Health {get; private set;}
     [field: SerializeField] public Damage Damage {get; private set;}
     
     public event Action AttackEvent;
     public event Action TakeDamageEvent;
     
-    public void AttackFor(Character target)
+    public void Attack(Character target)
     {
-        if (Attack.CanAttack)
-        {
-            Attack.SetCanAttack(false);
+        if (Attacker.TryAttack(target, Damage))
             AttackEvent?.Invoke();
-            target.TakeDamage(Damage.Value);
-            Attack.DelayAttack();
-        }
     }
 
-    private void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         Health.TakeHealth(damage);
 

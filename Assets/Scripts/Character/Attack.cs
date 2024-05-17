@@ -5,15 +5,13 @@ public class Attack : MonoBehaviour
 {
     [SerializeField] private float _timeDelayAttack;
     
-    [field: SerializeField] public float DistanceAttack { get; private set; }
-    public bool CanAttack { get; private set; }
+    private Coroutine _delayAttack;
     
-    private Coroutine _coroutine;
+    [field: SerializeField] public float DistanceAttack { get; private set; }
     
     private void Awake()
     {
-        CanAttack = true;
-        _coroutine = null;
+        _delayAttack = null;
     }
 
     private void OnValidate()
@@ -22,21 +20,29 @@ public class Attack : MonoBehaviour
             DistanceAttack = 0f;
     }
 
-    public void SetCanAttack(bool canAttack)
+    public bool TryAttack(Character target, Damage damage)
     {
-        CanAttack = canAttack;
+        float distanceTarget = Vector2.Distance(transform.position, target.transform.position);
+
+        if (_delayAttack == null && distanceTarget - DistanceAttack < 0.0f)
+        {
+            target.TakeDamage(damage.Value);
+            DelayAttack();
+            return true;
+        }
+        
+        return false;
     }
     
     public void DelayAttack()
     {
-        if (_coroutine == null)
-            _coroutine = StartCoroutine(Delay());
+        if (_delayAttack == null)
+            _delayAttack = StartCoroutine(Delay());
     }
     
     private IEnumerator Delay()
     {
         yield return new WaitForSeconds(_timeDelayAttack);
-        CanAttack = true;
-        _coroutine = null;
+        _delayAttack = null;
     }
 }

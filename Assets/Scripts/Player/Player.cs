@@ -1,12 +1,9 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(PlayerMove))]
+[RequireComponent(typeof(Collider2D), typeof(PlayerInput), typeof(PlayerMove))]
 public class Player : Character
 {
-    [SerializeField] private Collider2D _collider2D;
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private PlayerMove _playerMove;
     [SerializeField] private LayerMask _layerMaskAttacked;
@@ -14,8 +11,6 @@ public class Player : Character
     private int _countCoin;
     
     public event Action Die;
-    
-    public float DeltaTransformCollider => _collider2D.bounds.size.x;
     
     private void Start()
     {
@@ -48,14 +43,13 @@ public class Player : Character
     
     private void Assail(bool isAttack)
     {
-        if (isAttack && Attack.CanAttack)
+        if (isAttack)
         {
             RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, _playerMove.GetDirectionView(),
-                Attack.DistanceAttack, _layerMaskAttacked.value);
+                Attacker.DistanceAttack, _layerMaskAttacked.value);
 
             if (raycastHit2D && raycastHit2D.collider.TryGetComponent(out Enemy targetEnemy))
-                AttackFor(targetEnemy);
+                Attack(targetEnemy);
         }
     }
-    
 }

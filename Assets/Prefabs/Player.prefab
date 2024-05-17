@@ -230,10 +230,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c752df1940530b34d866419eba6886d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Attack>k__BackingField: {fileID: 8211562763489705640}
+  <Attacker>k__BackingField: {fileID: 8211562763489705640}
   <Health>k__BackingField: {fileID: 2232554882874013226}
   <Damage>k__BackingField: {fileID: 5903855861426714744}
-  _collider2D: {fileID: 8779743007867170730}
   _playerInput: {fileID: 2461984216095376547}
   _playerMove: {fileID: 3960398734946553878}
   _layerMaskAttacked:
