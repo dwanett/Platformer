@@ -630,6 +630,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe2e5374b0f002418c36430361d6637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FloorMask:
+    serializedVersion: 2
+    m_Bits: 0
+  SpriteRenderer: {fileID: 0}
   _speed: 4
   _directionMove: 1
   _rigidbody: {fileID: 514060999}
@@ -11034,7 +11038,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ebcb5877b5c86ca4288b402311734e5f, type: 3}
   - {fileID: 8300000, guid: 9acb556b0091e6843a550090cfb08527, type: 3}
   - {fileID: 8300000, guid: 98233f52919b0e240a140ff2937c4d9b, type: 3}
-  _timePlayClipButton: 5
+  _timePlayClipButton: 10
   _nameValueVolumeMaster: MasterVolume
   _nameValueVolumeBackground: BackgroundVolume
   _nameValueVolumeButton: ButtonVolume
