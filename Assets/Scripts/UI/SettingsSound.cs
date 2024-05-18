@@ -17,9 +17,9 @@ public class SettingsSound : MonoBehaviour
     [SerializeField] private string _nameValueVolumeButton;
     [SerializeField] private float _valueVolumeOffSound;
     
-    public event Action<bool> DisabledOrEnabledSound;
-    
     private float _saveVolume;
+    public event Action<bool> EnabledSound;
+    
     public bool IsEnableSound { get; private set; }
     
     private void Awake()
@@ -32,7 +32,7 @@ public class SettingsSound : MonoBehaviour
         
         _audioMixer.GetFloat(_nameValueVolumeMaster, out _saveVolume);
         IsEnableSound = _saveVolume > _valueVolumeOffSound;
-        DisabledOrEnabledSound?.Invoke(IsEnableSound);
+        EnabledSound?.Invoke(IsEnableSound);
     }
 
     private IEnumerator TimePlaySound(AudioSource audioSource)
@@ -48,22 +48,22 @@ public class SettingsSound : MonoBehaviour
         StartCoroutine(TimePlaySound(_audioSourceButton));
     }
     
-    public void VolumeMaster(float volume)
+    public void SetVolumeMaster(float volume)
     {
-        _audioMixer.SetFloat(_nameValueVolumeMaster, volume);
+        _audioMixer.SetFloat(_nameValueVolumeMaster, Mathf.Log10(volume) * 20);
         _saveVolume = volume;
         IsEnableSound = _saveVolume > _valueVolumeOffSound;
-        DisabledOrEnabledSound?.Invoke(IsEnableSound);
+        EnabledSound?.Invoke(IsEnableSound);
     }
     
-    public void VolumeBackground(float volume)
+    public void SetVolumeBackground(float volume)
     {
-        _audioMixer.SetFloat(_nameValueVolumeBackground, volume);
+        _audioMixer.SetFloat(_nameValueVolumeBackground, Mathf.Log10(volume) * 20);
     }
     
-    public void VolumeButton(float volume)
+    public void SetVolumeButton(float volume)
     {
-        _audioMixer.SetFloat(_nameValueVolumeButton, volume);
+        _audioMixer.SetFloat(_nameValueVolumeButton, Mathf.Log10(volume) * 20);
     }
     
     public void EnableAndDisableSound()
@@ -80,6 +80,6 @@ public class SettingsSound : MonoBehaviour
             _audioMixer.SetFloat(_nameValueVolumeMaster, _saveVolume);
         }
         
-        DisabledOrEnabledSound?.Invoke(IsEnableSound);
+        EnabledSound?.Invoke(IsEnableSound);
     }
 }

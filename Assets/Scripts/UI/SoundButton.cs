@@ -17,12 +17,12 @@ public class SoundButton : MonoBehaviour
 
     private void OnEnable()
     {
-        _settingsSound.DisabledOrEnabledSound += ChangeImageSound;
+        _settingsSound.EnabledSound += ChangeImageSound;
     }
 
     private void OnDisable()
     {
-        _settingsSound.DisabledOrEnabledSound -= ChangeImageSound;
+        _settingsSound.EnabledSound -= ChangeImageSound;
     }
     
     private void ChangeImageSound(bool isEnableSound)

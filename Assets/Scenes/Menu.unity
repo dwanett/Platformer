@@ -10384,15 +10384,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_MaxValue
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_MinValue
-      value: -80
+      value: 0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -10412,7 +10412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: VolumeBackground
+      value: SetVolumeBackground
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -11408,12 +11408,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
+      propertyPath: m_Value
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_MaxValue
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_MinValue
-      value: -80
+      value: 0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -11433,7 +11437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: VolumeButton
+      value: SetVolumeButton
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -11600,15 +11604,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_MaxValue
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_MinValue
-      value: -80
+      value: 0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -11628,7 +11632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: VolumeMaster
+      value: SetVolumeMaster
       objectReference: {fileID: 0}
     - target: {fileID: 4012065296743431399, guid: e2cb51dead5f3d04d9c9fe1da720fe0e, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
