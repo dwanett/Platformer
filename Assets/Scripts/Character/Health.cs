@@ -1,14 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField, Range(0, 300f)] private float _maxValue;
+    [field: SerializeField, Range(0, 300f)] public float MaxValue { get; private set; }
     [field: SerializeField, Range(0, 300f)] public float Value { get; private set; }
-    
+
+    public event Action ChangeHealthEvent;
+
     private void OnValidate()
     {
-        if (Value > _maxValue)
-            Value = _maxValue;
+        if (Value > MaxValue)
+            Value = MaxValue;
     }
     
     public void AddHealth(float health)
@@ -16,7 +19,8 @@ public class Health : MonoBehaviour
         if (health <= 0f) 
             return;
         
-        Value = Mathf.Clamp(health + Value, 0, _maxValue);
+        Value = Mathf.Clamp(health + Value, 0, MaxValue);
+        ChangeHealthEvent?.Invoke();
     }
     
     public void TakeHealth(float health)
@@ -25,5 +29,6 @@ public class Health : MonoBehaviour
             return;
         
         Value = Mathf.Clamp(Value - health, 0, Value);
+        ChangeHealthEvent?.Invoke();
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Vision : MonoBehaviour
 {
+    [SerializeField] private Transform _parent;
     private Player _target;
     
     public event Action<Player> EnterVisionPlayer;
@@ -40,11 +41,10 @@ public class Vision : MonoBehaviour
     private IEnumerator Follow()
     {
         WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
-        Enemy parent = GetComponentInParent<Enemy>();
         
         while (enabled)
         {
-            transform.right = (_target.transform.position - transform.position) * parent.transform.localScale.x;
+            transform.right = (_target.transform.position - transform.position) * _parent.localScale.x;
             yield return waitForFixedUpdate;
         }
     }
