@@ -19,10 +19,8 @@ public class Enemy : Character
 
     private void FixedUpdate()
     {
-        if (_player is not null)
-        {
-            Attack(_player);
-        }
+        if (_player is not null && TryFindSkill(out Attack attack))
+            CastSkill(attack);
     }
 
     private void SetPlayer(Player player)
@@ -39,7 +37,6 @@ public class Enemy : Character
     {
         PatrollingWay = patrollingWay;
     }
-
 
     public Transform GetNextPointTarget()
     {

@@ -325,12 +325,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3640ad8d974632a53f3c9d2abb8435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeDelayAttack: 2.5
+  _timeDelayUsing: 2
   <Damage>k__BackingField: 25
   <LayerMaskAttacked>k__BackingField:
     serializedVersion: 2
-    m_Bits: 0
-  <DistanceAttack>k__BackingField: 1
+    m_Bits: 128
+  <DistanceUsing>k__BackingField: 1
 --- !u!114 &8066038366880677042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,9 +343,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2c0321e53d3144f9d37eb074571f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Attacker>k__BackingField: {fileID: 7697642678109015388}
   <Health>k__BackingField: {fileID: 5213940507639047069}
-  <Skiller>k__BackingField: {fileID: 0}
+  <Skills>k__BackingField:
+  - {fileID: 7697642678109015388}
   _vision: {fileID: 1636915290910953222}
 --- !u!114 &5015145752498752108
 MonoBehaviour:

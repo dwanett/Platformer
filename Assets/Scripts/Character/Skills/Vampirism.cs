@@ -2,22 +2,29 @@
 using System.Collections;
 using UnityEngine;
 
-public class Vampirism : Skill
+public class Vampirism : SkillCooldown
 {
     [SerializeField] private Health _health;
+    [SerializeField] private float _timeDelayDammage;
     
     private Coroutine _coroutine = null;
     
-    public override void Use()
+    public override bool TryUse()
     {
-        base.Use();
-        if (_coroutine != null)
+        bool isUsing = base.TryUse();
+
+        if (isUsing)
         {
-            StopCoroutine(_coroutine);
-            _coroutine = null;
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+                _coroutine = null;
+            }
+
+            _coroutine = StartCoroutine(Using());
         }
 
-        _coroutine = StartCoroutine(Using());
+        return isUsing;
     }
 
     private Collider2D GetClosestCollider(Collider2D[] colliders)
@@ -27,7 +34,7 @@ public class Vampirism : Skill
 
         if (colliders.Length == 0)
             return null;
-        
+
         for (int i = 0; i < colliders.Length; i++)
         {
             float distance = Vector2.Distance(transform.position, colliders[i].transform.position);
@@ -38,26 +45,26 @@ public class Vampirism : Skill
                 indexСlosestCollider = i;
             }
         }
-        
+
         return colliders[indexСlosestCollider];
     }
-    
+
     private IEnumerator Using()
     {
-        WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
-        
+        WaitForSeconds WaitForSeconds = new WaitForSeconds(_timeDelayDammage);
+
         while (CanUse)
         {
             Collider2D closestCollider =
-                GetClosestCollider(Physics2D.OverlapCircleAll(transform.position, DistanceAttack, LayerMaskAttacked));
+                GetClosestCollider(Physics2D.OverlapCircleAll(transform.position, DistanceUsing, LayerMaskAttacked));
             
             if (closestCollider != null && closestCollider.TryGetComponent(out Character target))
             {
-                if (TryAttack(target))
-                    _health.AddHealth(Damage);
+                target.TakeDamage(Damage);
+                _health.AddHealth(Damage);
             }
 
-            yield return waitForFixedUpdate;
+            yield return WaitForSeconds;
         }
     }
 }

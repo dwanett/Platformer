@@ -1,39 +1,53 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
-public abstract class Skill : Attack
+public abstract class Skill : MonoBehaviour
 {
-    [SerializeField] protected float _timeUse;
-    [SerializeField] protected float _timeCooldown;
+    [SerializeField] private float _timeDelayUsing;
+    [field: SerializeField, Range(0, 300f)] public float Damage {get; private set;}
+    [field: SerializeField] public LayerMask LayerMaskAttacked {get; private set;}
+    [field: SerializeField] public float DistanceUsing { get; private set; }
     
-    private Coroutine _coroutineUse = null;
+    private Coroutine _delayAttack;
 
-    protected bool CanUse = true;
-
-    public event Action<bool> UsingSkill;
-    
-    public virtual void Use()
+    private void Awake()
     {
-        if (CanUse && _coroutineUse == null)
+        _delayAttack = null;
+    }
+
+    private void OnValidate()
+    {
+        if (DistanceUsing < 0f)
+            DistanceUsing = 0f;
+    }
+    
+    public bool IsDistanceReached(Character target)
+    {
+        float distanceTarget = Vector2.Distance(transform.position, target.transform.position);
+
+        return distanceTarget - DistanceUsing < 0.0f;
+    }
+    
+    public virtual bool TryUse()
+    {
+        if (_delayAttack == null)
         {
-            UsingSkill?.Invoke(true);
-            _coroutineUse = StartCoroutine(TimerUse());
+            DelayUse();
+            return true;
         }
+        
+        return false;
     }
-
-    private IEnumerator TimerUse()
+    
+    private void DelayUse()
     {
-        yield return new WaitForSeconds(_timeUse);
-        CanUse = false;
-        UsingSkill?.Invoke(false);
-        _coroutineUse = null;
-        StartCoroutine(TimerCooldown());
+        if (_delayAttack == null)
+            _delayAttack = StartCoroutine(Delay());
     }
-
-    private IEnumerator TimerCooldown()
+    
+    private IEnumerator Delay()
     {
-        yield return new WaitForSeconds(_timeCooldown);
-        CanUse = true;
+        yield return new WaitForSeconds(_timeDelayUsing);
+        _delayAttack = null;
     }
 }

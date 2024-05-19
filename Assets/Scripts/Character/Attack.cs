@@ -1,54 +1,24 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class Attack : Skill
 {
-    [SerializeField] private float _timeDelayAttack;
-    [field: SerializeField, Range(0, 300f)] public float Damage {get; private set;}
-    [field: SerializeField] public LayerMask LayerMaskAttacked {get; private set;}
-    [field: SerializeField] public float DistanceAttack { get; private set; }
-    
-    private Coroutine _delayAttack;
-
-    private void Awake()
+    public override bool TryUse()
     {
-        _delayAttack = null;
-    }
+        bool isUsing = false;
+        
+        Vector2 directionView = transform.localScale.x < 0f ? Vector2.left : Vector2.right;
+        
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, directionView,
+            DistanceUsing, LayerMaskAttacked.value);
 
-    private void OnValidate()
-    {
-        if (DistanceAttack < 0f)
-            DistanceAttack = 0f;
-    }
-
-    public bool IsDistanceReached(Character target)
-    {
-        float distanceTarget = Vector2.Distance(transform.position, target.transform.position);
-
-        return distanceTarget - DistanceAttack < 0.0f;
-    }
-    
-    public bool TryAttack(Character target)
-    {
-        if (_delayAttack == null)
+        if (raycastHit2D && raycastHit2D.collider.TryGetComponent(out Character target))
         {
-            DelayAttack();
-            target.TakeDamage(Damage);
-            return true;
+            isUsing = IsDistanceReached(target) && base.TryUse();
+            
+            if (isUsing)
+                target.TakeDamage(Damage);
         }
         
-        return false;
-    }
-    
-    public void DelayAttack()
-    {
-        if (_delayAttack == null)
-            _delayAttack = StartCoroutine(Delay());
-    }
-    
-    private IEnumerator Delay()
-    {
-        yield return new WaitForSeconds(_timeDelayAttack);
-        _delayAttack = null;
+        return isUsing;
     }
 }

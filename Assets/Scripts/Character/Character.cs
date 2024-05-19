@@ -3,11 +3,10 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    [field: SerializeField] public Attack Attacker {get; private set;}
     [field: SerializeField] public Health Health {get; private set;}
-    [field: SerializeField] public Skill Skiller {get; private set;}
+    [field: SerializeField] public  Skill[] Skills {get; private set;}
     
-    public event Action AttackEvent;
+    public event Action BaseAttackEvent;
     public event Action TakeDamageEvent;
     
     private void ToDie()
@@ -15,12 +14,30 @@ public abstract class Character : MonoBehaviour
         gameObject.SetActive(false);
     }
     
-    protected void Attack(Character target)
+    protected void CastSkill(Skill skill)
     {
-        if (Attacker.IsDistanceReached(target) && Attacker.TryAttack(target))
-            AttackEvent?.Invoke();
+        if (skill.TryUse())
+        {
+            if (skill is Attack)
+                BaseAttackEvent?.Invoke();
+        }
     }
 
+    protected bool TryFindSkill<T>(out T typedSkill) where T : Skill
+    {
+        foreach (Skill skill in Skills)
+        {
+            if (skill is T)
+            {
+                typedSkill = (T)skill;
+                return true;
+            }
+        }
+
+        typedSkill = null;
+        return false;
+    }
+    
     public void TakeDamage(float damage)
     {
         Health.TakeHealth(damage);

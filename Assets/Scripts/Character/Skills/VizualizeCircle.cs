@@ -3,33 +3,38 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class VizualizeCircle : MonoBehaviour
 {
-    [SerializeField] private Skill _skiller;
+    [SerializeField] private SkillCooldown _skillCooldown;
     [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private int _countSegments;
 
-    private Vector3 savePostion;
+    private Vector3 _savePostion;
+
+    private float _pi2Deg = 360.0f;
+    
     private void OnEnable()
     {
-        _skiller.UsingSkill += Draw;
+        _skillCooldown.EnabledSkill += OnDraw;
+        _skillCooldown.DisabledSkill += OffDraw;
     }
     
     private void Start()
     {
-        DrawCircle(Vector3.zero, _skiller.DistanceAttack, _countSegments);
+        DrawCircle(Vector3.zero, _skillCooldown.DistanceUsing, _countSegments);
         _lineRenderer.enabled = false;
     }
     
     private void OnDisable()
     {
-        _skiller.UsingSkill -= Draw;
+        _skillCooldown.EnabledSkill -= OnDraw;
+        _skillCooldown.DisabledSkill -= OffDraw;
     }
     
     private void Update()
     {
-        if (_lineRenderer.enabled && savePostion != transform.position)
+        if (_lineRenderer.enabled && _savePostion != transform.position)
         {
-            UpdatePositionCircle(transform.position, savePostion);
-            savePostion = transform.position;
+            UpdatePositionCircle(transform.position, _savePostion);
+            _savePostion = transform.position;
         }
     }
 
@@ -38,7 +43,7 @@ public class VizualizeCircle : MonoBehaviour
         if (radius <= 0.0f || segments <= 0)
             return;
         
-        float angleStep = (360.0f / segments) * Mathf.Deg2Rad;
+        float angleStep = (_pi2Deg / segments) * Mathf.Deg2Rad;
         
         Vector3 line = Vector3.zero;
  
@@ -62,8 +67,13 @@ public class VizualizeCircle : MonoBehaviour
         }
     }
     
-    private void Draw(bool canDraw)
+    private void OnDraw()
     {
-        _lineRenderer.enabled = canDraw;
+        _lineRenderer.enabled = true;
+    }
+    
+    private void OffDraw()
+    {
+        _lineRenderer.enabled = false;
     }
 }

@@ -13,7 +13,7 @@ public class AnimationCharacter : MonoBehaviour
     {
         if (_character != null)
         {
-            _character.AttackEvent += AnimationAttack;
+            _character.BaseAttackEvent += AnimationAttack;
             _character.TakeDamageEvent += AnimationTakeDamage;
         }
         
@@ -24,7 +24,7 @@ public class AnimationCharacter : MonoBehaviour
     {
         if (_character != null)
         {
-            _character.AttackEvent -= AnimationAttack;
+            _character.BaseAttackEvent -= AnimationAttack;
             _character.TakeDamageEvent -= AnimationTakeDamage;
         }
         

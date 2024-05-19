@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player : Character
 {
     [SerializeField] private PlayerInput _playerInput;
-    [SerializeField] private PlayerMove _playerMove;
     
     private int _countCoin;
     
@@ -18,8 +17,8 @@ public class Player : Character
 
     private void OnEnable()
     {
-        _playerInput.AssailEvent += Assail;
-        _playerInput.AssailSkillEvent += AssailSkill;
+        _playerInput.AttackEvent += BaseAttack;
+        _playerInput.AttackVampirism += VampirismAttack;
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -37,26 +36,24 @@ public class Player : Character
     
     private void OnDisable()
     {
-        _playerInput.AssailEvent -= Assail;
-        _playerInput.AssailSkillEvent -= AssailSkill;
+        _playerInput.AttackEvent -= BaseAttack;
+        _playerInput.AttackVampirism -= VampirismAttack;
         Die?.Invoke();
     }
     
-    private void AssailSkill(bool isAttack)
+    private void VampirismAttack(bool isAttack)
     {
-        if (isAttack)
-            Skiller.Use();
+        Attack<Vampirism>(isAttack);
     }
     
-    private void Assail(bool isAttack)
+    private void BaseAttack(bool isAttack)
     {
-        if (isAttack)
-        {
-            RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, _playerMove.GetDirectionView(),
-                Attacker.DistanceAttack, Attacker.LayerMaskAttacked.value);
-
-            if (raycastHit2D && raycastHit2D.collider.TryGetComponent(out Enemy targetEnemy))
-                Attack(targetEnemy);
-        }
+        Attack<Attack>(isAttack);
+    }
+    
+    private void Attack<T>(bool isAttack) where T : Skill
+    {
+        if (isAttack && TryFindSkill(out T attack))
+            CastSkill(attack);
     }
 }

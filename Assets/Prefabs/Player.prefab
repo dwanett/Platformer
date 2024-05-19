@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce80f919da182345ac1697ed9bb8d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skiller: {fileID: 6813466036975222095}
+  _skillCooldown: {fileID: 6813466036975222095}
   _lineRenderer: {fileID: 5755882695542350644}
   _countSegments: 64
 --- !u!120 &5755882695542350644
@@ -355,12 +355,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3640ad8d974632a53f3c9d2abb8435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeDelayAttack: 1.5
+  _timeDelayUsing: 1.5
   <Damage>k__BackingField: 25
   <LayerMaskAttacked>k__BackingField:
     serializedVersion: 2
     m_Bits: 256
-  <DistanceAttack>k__BackingField: 1
+  <DistanceUsing>k__BackingField: 1
 --- !u!114 &-1403307251692910894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,11 +373,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c752df1940530b34d866419eba6886d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Attacker>k__BackingField: {fileID: 8211562763489705640}
   <Health>k__BackingField: {fileID: 2232554882874013226}
-  <Skiller>k__BackingField: {fileID: 6813466036975222095}
+  <Skills>k__BackingField:
+  - {fileID: 8211562763489705640}
+  - {fileID: 6813466036975222095}
   _playerInput: {fileID: 2461984216095376547}
-  _playerMove: {fileID: 3960398734946553878}
 --- !u!114 &3960398734946553878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,15 +412,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa8a5e6d31e9468dbd7fe08518d62415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeDelayAttack: 2
+  _timeDelayUsing: 0
   <Damage>k__BackingField: 10
   <LayerMaskAttacked>k__BackingField:
     serializedVersion: 2
     m_Bits: 256
-  <DistanceAttack>k__BackingField: 2
+  <DistanceUsing>k__BackingField: 2
   _timeUse: 6
   _timeCooldown: 10
   _health: {fileID: 2232554882874013226}
+  _timeDelayDammage: 1
 --- !u!114 &2461984216095376547
 MonoBehaviour:
   m_ObjectHideFlags: 0

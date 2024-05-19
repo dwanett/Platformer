@@ -10,14 +10,14 @@ public class PlayerInput : MonoBehaviour
     
     public event Action<float> MoveEvent;
     public event Action<bool> JumpEvent;
-    public event Action<bool> AssailEvent;
-    public event Action<bool> AssailSkillEvent;
+    public event Action<bool> AttackEvent;
+    public event Action<bool> AttackVampirism;
     
     private void Update()
     {
         MoveEvent?.Invoke(Input.GetAxis(Horizontal));
         JumpEvent?.Invoke(Input.GetButton(Jump));
-        AssailEvent?.Invoke(Input.GetButton(FireOne));
-        AssailSkillEvent?.Invoke(Input.GetKey(UseSkill));
+        AttackEvent?.Invoke(Input.GetButton(FireOne));
+        AttackVampirism?.Invoke(Input.GetKey(UseSkill));
     }
 }
