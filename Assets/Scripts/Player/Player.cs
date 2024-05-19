@@ -6,7 +6,6 @@ public class Player : Character
 {
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private PlayerMove _playerMove;
-    [SerializeField] private LayerMask _layerMaskAttacked;
     
     private int _countCoin;
     
@@ -20,6 +19,7 @@ public class Player : Character
     private void OnEnable()
     {
         _playerInput.AssailEvent += Assail;
+        _playerInput.AssailSkillEvent += AssailSkill;
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -31,14 +31,21 @@ public class Player : Character
             else if (loot is KitHealth kitHealth)
                 Health.AddHealth(kitHealth.CountAddHealth);
 
-            loot.TackedLoot();
+            loot.Tacked();
         }
     }
     
     private void OnDisable()
     {
         _playerInput.AssailEvent -= Assail;
+        _playerInput.AssailSkillEvent -= AssailSkill;
         Die?.Invoke();
+    }
+    
+    private void AssailSkill(bool isAttack)
+    {
+        if (isAttack)
+            Skiller.Use();
     }
     
     private void Assail(bool isAttack)
@@ -46,7 +53,7 @@ public class Player : Character
         if (isAttack)
         {
             RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, _playerMove.GetDirectionView(),
-                Attacker.DistanceAttack, _layerMaskAttacked.value);
+                Attacker.DistanceAttack, Attacker.LayerMaskAttacked.value);
 
             if (raycastHit2D && raycastHit2D.collider.TryGetComponent(out Enemy targetEnemy))
                 Attack(targetEnemy);

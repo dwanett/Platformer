@@ -4,11 +4,12 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     [SerializeField] private float _timeDelayAttack;
-    
-    private Coroutine _delayAttack;
-    
+    [field: SerializeField, Range(0, 300f)] public float Damage {get; private set;}
+    [field: SerializeField] public LayerMask LayerMaskAttacked {get; private set;}
     [field: SerializeField] public float DistanceAttack { get; private set; }
     
+    private Coroutine _delayAttack;
+
     private void Awake()
     {
         _delayAttack = null;
@@ -20,14 +21,19 @@ public class Attack : MonoBehaviour
             DistanceAttack = 0f;
     }
 
-    public bool TryAttack(Character target, Damage damage)
+    public bool IsDistanceReached(Character target)
     {
         float distanceTarget = Vector2.Distance(transform.position, target.transform.position);
 
-        if (_delayAttack == null && distanceTarget - DistanceAttack < 0.0f)
+        return distanceTarget - DistanceAttack < 0.0f;
+    }
+    
+    public bool TryAttack(Character target)
+    {
+        if (_delayAttack == null)
         {
-            target.TakeDamage(damage.Value);
             DelayAttack();
+            target.TakeDamage(Damage);
             return true;
         }
         

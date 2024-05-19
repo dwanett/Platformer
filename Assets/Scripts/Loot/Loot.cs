@@ -5,7 +5,7 @@ public abstract class Loot : MonoBehaviour
 {
     public event Action TakedLoot;
     
-    public void TackedLoot()
+    public void Tacked()
     {
         TakedLoot?.Invoke();
         SetActive(false);

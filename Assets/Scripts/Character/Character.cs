@@ -5,14 +5,19 @@ public abstract class Character : MonoBehaviour
 {
     [field: SerializeField] public Attack Attacker {get; private set;}
     [field: SerializeField] public Health Health {get; private set;}
-    [field: SerializeField] public Damage Damage {get; private set;}
+    [field: SerializeField] public Skill Skiller {get; private set;}
     
     public event Action AttackEvent;
     public event Action TakeDamageEvent;
     
-    public void Attack(Character target)
+    private void ToDie()
     {
-        if (Attacker.TryAttack(target, Damage))
+        gameObject.SetActive(false);
+    }
+    
+    protected void Attack(Character target)
+    {
+        if (Attacker.IsDistanceReached(target) && Attacker.TryAttack(target))
             AttackEvent?.Invoke();
     }
 
@@ -24,10 +29,5 @@ public abstract class Character : MonoBehaviour
 
         if (Health.Value <= 0f)
             ToDie();
-    }
-    
-    private void ToDie()
-    {
-        gameObject.SetActive(false);
     }
 }
