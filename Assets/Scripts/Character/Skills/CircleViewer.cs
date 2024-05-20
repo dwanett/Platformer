@@ -1,20 +1,20 @@
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class VizualizeCircle : MonoBehaviour
+public class CircleViewer : MonoBehaviour
 {
     [SerializeField] private SkillCooldown _skillCooldown;
     [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private int _countSegments;
 
-    private Vector3 _savePostion;
+    private Vector3 _savePosition;
 
     private float _pi2Deg = 360.0f;
     
     private void OnEnable()
     {
-        _skillCooldown.EnabledSkill += OnDraw;
-        _skillCooldown.DisabledSkill += OffDraw;
+        _skillCooldown.Enabled += OnDraw;
+        _skillCooldown.Disabled += OffDraw;
     }
     
     private void Start()
@@ -25,16 +25,16 @@ public class VizualizeCircle : MonoBehaviour
     
     private void OnDisable()
     {
-        _skillCooldown.EnabledSkill -= OnDraw;
-        _skillCooldown.DisabledSkill -= OffDraw;
+        _skillCooldown.Enabled -= OnDraw;
+        _skillCooldown.Disabled -= OffDraw;
     }
     
     private void Update()
     {
-        if (_lineRenderer.enabled && _savePostion != transform.position)
+        if (_lineRenderer.enabled && _savePosition != transform.position)
         {
-            UpdatePositionCircle(transform.position, _savePostion);
-            _savePostion = transform.position;
+            UpdatePositionCircle(transform.position, _savePosition);
+            _savePosition = transform.position;
         }
     }
 

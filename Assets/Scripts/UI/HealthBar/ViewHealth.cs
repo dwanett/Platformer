@@ -13,12 +13,12 @@ public abstract class ViewHealth : MonoBehaviour
 
     private void OnEnable()
     {
-        Health.ChangeHealthEvent += Change;
+        Health.ChangedEvent += Change;
     }
 
     private void OnDisable()
     {
-        Health.ChangeHealthEvent -= Change;
+        Health.ChangedEvent -= Change;
     }
 
     private void LateUpdate()

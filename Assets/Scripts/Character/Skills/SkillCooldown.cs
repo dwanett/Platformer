@@ -11,8 +11,8 @@ public class SkillCooldown : Skill
 
     protected bool CanUse = true;
 
-    public event Action EnabledSkill;
-    public event Action DisabledSkill;
+    public event Action Enabled;
+    public event Action Disabled;
 
     public override bool TryUse()
     {
@@ -21,7 +21,7 @@ public class SkillCooldown : Skill
         if (isUsing)
         {
             _coroutineUse = StartCoroutine(TimerUse());
-            EnabledSkill?.Invoke();
+            Enabled?.Invoke();
         }
         
         return isUsing;
@@ -31,7 +31,7 @@ public class SkillCooldown : Skill
     {
         yield return new WaitForSeconds(_timeUse);
         CanUse = false;
-        DisabledSkill?.Invoke();
+        Disabled?.Invoke();
         _coroutineUse = null;
         StartCoroutine(TimerCooldown());
     }

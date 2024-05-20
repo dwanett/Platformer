@@ -51,7 +51,7 @@ public class Vampirism : SkillCooldown
 
     private IEnumerator Using()
     {
-        WaitForSeconds WaitForSeconds = new WaitForSeconds(_timeDelayDammage);
+        WaitForSeconds wait = new WaitForSeconds(_timeDelayDammage);
 
         while (CanUse)
         {
@@ -64,7 +64,7 @@ public class Vampirism : SkillCooldown
                 _health.AddHealth(Damage);
             }
 
-            yield return WaitForSeconds;
+            yield return wait;
         }
     }
 }
